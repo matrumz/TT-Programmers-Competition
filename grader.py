@@ -1,18 +1,46 @@
 #!/usr/bin/python3
 
-import requests
+from taskParams import TaskParams
+from logger import Logger
+from inventoryItem import InventoryItem
+from purchaseItem import PurchaseItem
+import sys
 
-def githubImport(user, repo, branch, module):
-	data = {}
-	url = url = 'https://raw.githubusercontent.com/{}/{}/{}/{}.py'.format(user, repo, branch, module)
-	request = requests.get(url).text
-	exec(request, data)
-	return data
+def moduleTest():
+	param = TaskParams(1,2,3,4)
+	path = './log.txt'
+	
+	try:
+		logger = Logger(path, 'OVERWRITE')
+	except ValueError:
+		print('Logger open value error')
+		sys.exit()
+	except IOError:
+		print("Logger open io error")
+		sys.exit()
+	
+	logger.warning(param.moneyLimit, 11)
+	logger.error(param.weightLimit, 12, 'grader.py')
+	
+	cat = []
+	try:
+		cat.append(InventoryItem('Rum','9000', 1, '0.1', 'grains'))
+		logger.info('I would spend ${} on {}'.format(cat[0].value, cat[0].name))
+	except ValueError as e:
+		logger.error('could not add item b/c: {}'.format(e), 32)
 
-user = 'matrumz'
-repo = 'PythonModules'
-branch = 'master'
-module = 'Logger/logger'
+	purchases = []
+	try:
+		purchases.append(PurchaseItem('Rum', '9000.0'))
+		logger.info('purchase made')
+	except ValueError as e:
+		logger.error('purchase failed: {}'.format(e))
 
-logger = githubImport(user, repo, branch, module)
-print(logger)
+	try:
+		logger.write()
+	except Exception as e:
+		print(e)
+
+
+
+moduleTest()
