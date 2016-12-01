@@ -31,8 +31,11 @@ def moduleTest():
 
 	purchases = []
 	try:
-		purchases.append(PurchaseItem('Rum', '9000.0'))
-		logger.info('purchase made')
+		name = 'Rum'
+		amount = '9000.9999999999998'
+		#fails @ '9000.99999999999998'
+		purchases.append(PurchaseItem(name, amount))
+		logger.info('purchased {} of {}'.format(purchases[0].amount, purchases[0].name))
 	except ValueError as e:
 		logger.error('purchase failed: {}'.format(e))
 
@@ -40,6 +43,8 @@ def moduleTest():
 		logger.write()
 	except Exception as e:
 		print(e)
+	finally:
+		logger.close()
 
 
 

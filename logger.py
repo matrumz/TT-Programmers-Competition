@@ -32,6 +32,9 @@ class Logger:
 		# Clear log if write successful
 		self.__log = []
 
+	def close(self):
+		self.__file.close()
+
 class LogEntry:
 	level = ""
 	lineNumber = 0
