@@ -97,15 +97,15 @@ class Grader():
 		# 		all POSs on individual lines
 		#			';' terminated
 		# 			not ';' terminated
-		fileContents.replace('\n',';')
+		fileContents = fileContents.replace('\n',';')
 		pOSList = fileContents.split(';')
 		for pOS in pOSList:
-			pOS.replace(';', '')
+			pOS = pOS.replace(';', '')
 			splitPOS = pOS.split(',')
 			if not pOS.strip(): # if empty string (pOS.strip() == '' was NOT working)
 				continue
 			if len(splitPOS) != 2:
-				self.syslog.warning("Invalid purchase object string '{}' b/c too many commas".format(pOS), None, path)
+				self.syslog.warning("Invalid purchase object string '{}' b/c wrong number of commas".format(pOS), None, path)
 				continue
 			try:
 				purchases.append(PurchaseItem(splitPOS[0], splitPOS[1]))
