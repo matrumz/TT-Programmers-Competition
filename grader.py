@@ -1,14 +1,17 @@
 #!/usr/bin/python3
 
-from taskParams import TaskParams
+from inputParams import InputParams
 from logger import Logger
 from inventoryItem import InventoryItem
 from purchaseItem import PurchaseItem
 from fileLists import InputList, OutputList
 import sys
 
+def main():
+	moduleTest()
+
+# Used for script testing purposes only
 def moduleTest():
-	param = TaskParams(1,2,3,4)
 	logPath = './log.txt'
 	inputSearchPath  = './inputs/'
 	outputSearchPath = './outputs/'
@@ -26,6 +29,12 @@ def moduleTest():
 		sys.exit()
 	#logger.warning(param.moneyLimit, 11)
 	#logger.error(param.weightLimit, 12, 'grader.py')
+
+	# Test inputparams
+	try:
+		param = InputParams('e',3,4)
+	except ValueError as e:
+		logger.error(e)
 	
 	# Test InventoryItem
 	cat = []
@@ -62,6 +71,6 @@ def moduleTest():
 	finally:
 		logger.close()
 
-
-
-moduleTest()
+# Set Script Entry Point
+if __name__ == '__main__':
+	main()
