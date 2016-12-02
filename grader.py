@@ -4,24 +4,29 @@ from taskParams import TaskParams
 from logger import Logger
 from inventoryItem import InventoryItem
 from purchaseItem import PurchaseItem
+from inputList import InputList
 import sys
 
 def moduleTest():
 	param = TaskParams(1,2,3,4)
-	path = './log.txt'
+	logPath = './log.txt'
+	inputSearchPath = './inputs/'
+	inputFileGlob = "input-[0-9]*.txt"
+	inputNumberExtractorRegex = '-([0-9]+)\\.'
 	
+	# Open and test logger
 	try:
-		logger = Logger(path, 'OVERWRITE')
+		logger = Logger(logPath, 'OVERWRITE')
 	except ValueError:
 		print('Logger open value error')
 		sys.exit()
 	except IOError:
 		print("Logger open io error")
 		sys.exit()
-	
 	logger.warning(param.moneyLimit, 11)
 	logger.error(param.weightLimit, 12, 'grader.py')
 	
+	# Test InventoryItem
 	cat = []
 	try:
 		cat.append(InventoryItem('Rum','9000', 1, '0.1', 'grains'))
@@ -29,6 +34,7 @@ def moduleTest():
 	except ValueError as e:
 		logger.error('could not add item b/c: {}'.format(e), 32)
 
+	# Test PurchaseItem
 	purchases = []
 	try:
 		name = 'Rum'
@@ -38,6 +44,13 @@ def moduleTest():
 		logger.info('purchased {} of {}'.format(purchases[0].amount, purchases[0].name))
 	except ValueError as e:
 		logger.error('purchase failed: {}'.format(e))
+
+	# Test find input files
+	try:
+		inputList = InputList(inputSearchPath, inputFileGlob, inputNumberExtractorRegex)
+		logger.info(inputList.fileDict)
+	except Exception as e:
+		print(e)
 
 	try:
 		logger.write()
