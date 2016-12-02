@@ -10,7 +10,7 @@ class InventoryItem:
 
 	def __init__(self, name, quantity, value, weight, volume, fG):
 
-		self.name = name
+		self.name = name.strip()
 		try:
 			numericQ = float(quantity)
 			if (numericQ.is_integer()):
@@ -24,6 +24,7 @@ class InventoryItem:
 		except ValueError:
 			raise
 
+		fG = fG.strip()
 		if fG in possibleFG:
 			self.fG = fG
 		else:

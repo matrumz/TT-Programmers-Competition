@@ -68,13 +68,52 @@ class Grader():
 					continue
 				try:
 					submissionContents = self.loadOutputFile(submission.path)
+					print(submissionContents)
 				except Exception as e:
 					self.syslog.error("Error loading OUTPUT FILE {}: {}".format(submission.path, e))
 				#try:
 				#	result = self.validateOutputFile(submissionContents)
 	
 	def loadOutputFile(self,path):
-		pass
+		fileContents = ""
+		purchases = []
+
+		try:
+			f = open(path, 'r')
+			fileContents = f.read()
+		except Exception as e:
+			self.syslog.error("Could not read output file {}: {}".format(path, e))
+		finally:
+			try:
+				f.close()
+			except:
+				pass
+
+		# Replace all newlines with ';'
+		# Then tokenize on ';' for purchase objects strings
+		# Find all remaining ';' in each purchase object string and delete them
+		# This should give valid POSs in the following cases
+		# 		all POSs on one line, ';' delimited
+		# 		all POSs on individual lines
+		#			';' terminated
+		# 			not ';' terminated
+		fileContents.replace('\n',';')
+		pOSList = fileContents.split(';')
+		for pOS in pOSList:
+			pOS.replace(';', '')
+			splitPOS = pOS.split(',')
+			if not pOS.strip(): # if empty string (pOS.strip() == '' was NOT working)
+				continue
+			if len(splitPOS) != 2:
+				self.syslog.warning("Invalid purchase object string '{}' b/c too many commas".format(pOS), None, path)
+				continue
+			try:
+				purchases.append(PurchaseItem(splitPOS[0], splitPOS[1]))
+			except Exception as e:
+				self.syslog.warning("Invalid PurchaseItem '{}': {}".format(pOS, e), None, path)
+				continue
+
+		return purchases
 
 	def loadInputFile(self,path):
 		inventoryLine = ""
@@ -94,6 +133,7 @@ class Grader():
 			else:
 				raise ValueError('Could not match parameter line')
 		except Exception as e:
+			f.close()
 			raise ValueError('Could not get inputfile parameters: {}'.format(e))
 
 		# Load inventory

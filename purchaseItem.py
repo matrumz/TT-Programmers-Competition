@@ -3,7 +3,7 @@ class PurchaseItem:
 	amount = 0
 
 	def __init__(self, name, amount):
-		self.name = name
+		self.name = name.strip()
 
 		numericAmount = float(amount)
 
@@ -15,3 +15,5 @@ class PurchaseItem:
 		if self.amount < 0:
 			raise ValueError('Cannot purchase a negative quantity: {}'.format(self.amount))
 
+	def __repr__(self):
+		return '{},{}\n'.format(self.name, self.amount)
