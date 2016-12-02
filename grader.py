@@ -4,15 +4,18 @@ from taskParams import TaskParams
 from logger import Logger
 from inventoryItem import InventoryItem
 from purchaseItem import PurchaseItem
-from inputList import InputList
+from fileLists import InputList, OutputList
 import sys
 
 def moduleTest():
 	param = TaskParams(1,2,3,4)
 	logPath = './log.txt'
-	inputSearchPath = './inputs/'
+	inputSearchPath  = './inputs/'
+	outputSearchPath = './outputs/'
 	inputFileGlob = "input-[0-9]*.txt"
+	outputFileGlob = ".*-[0-9]*-[0-9]*.txt"
 	inputNumberExtractorRegex = '-([0-9]+)\\.'
+	outputInfoExtractorRegex = "^(.+)-([0-9]+)-([0-9]+)\\.txt"
 	
 	# Open and test logger
 	try:
@@ -49,6 +52,7 @@ def moduleTest():
 	try:
 		inputList = InputList(inputSearchPath, inputFileGlob, inputNumberExtractorRegex)
 		logger.info(inputList.fileDict)
+		outputList = OutputList(outputSearchPath, outputFileGlob, outputInfoExtractorRegex)
 	except Exception as e:
 		print(e)
 
