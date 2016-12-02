@@ -5,6 +5,7 @@ from logger import Logger
 from inventoryItem import InventoryItem
 from purchaseItem import PurchaseItem
 from fileLists import InputList, OutputList
+#from results import Result, SubmissionResult
 import sys, re
 
 class Grader():
@@ -32,7 +33,6 @@ class Grader():
 			print('could not write or close system log: {}'.format(e))
 
 	def main(self):
-		
 
 		# Get input file list
 		try:
@@ -56,14 +56,25 @@ class Grader():
 			return
 			
 		# Process
-		for inputNumberKey, inputFilePath in inputDict.items():
+		for inputNumberKey, inputFilePath in inputDict.items(): # foreach found input file
 			try:
 				self.loadInputFile(inputFilePath)
-				print(self.inputParam.moneyLimit)
-				print(self.inventoryList[0].name)
 			except Exception as e:
-				self.syslog.error("Error loading {}: {}".format(inputFilePath, e))
+				self.syslog.error("Error loading INPUT FILE {}: {}".format(inputFilePath, e))
 				continue #skip to next input file
+			
+			for submission in submissionList: # foreach submission file...
+				if str(submission.inputNumber) != str(inputNumberKey): # where applies to current input file
+					continue
+				try:
+					submissionContents = self.loadOutputFile(submission.path)
+				except Exception as e:
+					self.syslog.error("Error loading OUTPUT FILE {}: {}".format(submission.path, e))
+				#try:
+				#	result = self.validateOutputFile(submissionContents)
+	
+	def loadOutputFile(self,path):
+		pass
 
 	def loadInputFile(self,path):
 		inventoryLine = ""
