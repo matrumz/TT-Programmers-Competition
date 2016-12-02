@@ -12,3 +12,6 @@ class PurchaseItem:
 		else:
 			raise ValueError('{} is not an integer purchase amount.'.format(amount))
 
+		if self.amount < 0:
+			raise ValueError('Cannot purchase a negative quantity: {}'.format(self.amount))
+
