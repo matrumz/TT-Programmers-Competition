@@ -13,6 +13,10 @@ class InputList:
 					self.fileDict[match.group(1)] = '{}{}'.format(searchPath, f)
 		except:
 			raise
+		finally:
+			# This is getting me back to the root directory assuming successful navigation to searchPath
+			if not os.path.exists(searchPath):
+				os.chdir('../')
 
 class OutputList:
 	
@@ -20,13 +24,17 @@ class OutputList:
 
 	def __init__(self, searchPath, fileGlob, infoCaptureRegex):
 		try:
-			os.chdir(searchPath)
-			for f in glob.glob(fileGlob):
+			for f in os.listdir(searchPath):
 				match = re.search(infoCaptureRegex, f)
 				if match:
-					self.submissionList.append(Submission(match.group(1), match.group(2), match.group(3), '{}{}'.format(searchPath,f)))
+					self.submissionList.append(Submission(match.group(1), match.group(2), match.group(3), '{}{}'.format(searchPath, f)))
 		except:
 			raise
+		finally:
+			# This is getting me back to the root directory assuming successful navigation to searchPath
+			if not os.path.exists(searchPath):
+				os.chdir('../')
+
 
 class Submission:
 	name = ""
@@ -44,4 +52,4 @@ class Submission:
 		self.path = path
 
 	def __repr__(self):
-		return '{],{},{},{}'.format(self.name, self.task, self.inputNumber, self.path)
+		return '{},{},{},{}'.format(self.name, self.task, self.inputNumber, self.path)

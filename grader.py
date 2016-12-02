@@ -13,7 +13,7 @@ def moduleTest():
 	inputSearchPath  = './inputs/'
 	outputSearchPath = './outputs/'
 	inputFileGlob = "input-[0-9]*.txt"
-	outputFileGlob = ".*-[0-9]*-[0-9]*.txt"
+	outputFileGlob = ".*"
 	inputNumberExtractorRegex = '-([0-9]+)\\.'
 	outputInfoExtractorRegex = "^(.+)-([0-9]+)-([0-9]+)\\.txt"
 	
@@ -26,8 +26,8 @@ def moduleTest():
 	except IOError:
 		print("Logger open io error")
 		sys.exit()
-	logger.warning(param.moneyLimit, 11)
-	logger.error(param.weightLimit, 12, 'grader.py')
+	#logger.warning(param.moneyLimit, 11)
+	#logger.error(param.weightLimit, 12, 'grader.py')
 	
 	# Test InventoryItem
 	cat = []
@@ -53,6 +53,7 @@ def moduleTest():
 		inputList = InputList(inputSearchPath, inputFileGlob, inputNumberExtractorRegex)
 		logger.info(inputList.fileDict)
 		outputList = OutputList(outputSearchPath, outputFileGlob, outputInfoExtractorRegex)
+		logger.info(outputList.submissionList)
 	except Exception as e:
 		print(e)
 
