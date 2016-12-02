@@ -17,3 +17,6 @@ class InputParams:
 		# Error on negatives
 		if (self.moneyLimit < 0 or self.weightLimit < 0 or self.volumeLimit < 0):
 			raise ValueError('Negative values not allowed in input params')
+
+	def __repr__(self):
+		return '{},{},{}'.format(self.moneyLimit, self.weightLimit, self.volumeLimit)
