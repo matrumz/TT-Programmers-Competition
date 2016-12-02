@@ -12,9 +12,7 @@ def moduleTest():
 	logPath = './log.txt'
 	inputSearchPath  = './inputs/'
 	outputSearchPath = './outputs/'
-	inputFileGlob = "input-[0-9]*.txt"
-	outputFileGlob = ".*"
-	inputNumberExtractorRegex = '-([0-9]+)\\.'
+	inputNumberExtractorRegex = '^input-([0-9]+)\\.txt'
 	outputInfoExtractorRegex = "^(.+)-([0-9]+)-([0-9]+)\\.txt"
 	
 	# Open and test logger
@@ -50,9 +48,9 @@ def moduleTest():
 
 	# Test find input files
 	try:
-		inputList = InputList(inputSearchPath, inputFileGlob, inputNumberExtractorRegex)
+		inputList = InputList(inputSearchPath, inputNumberExtractorRegex)
 		logger.info(inputList.fileDict)
-		outputList = OutputList(outputSearchPath, outputFileGlob, outputInfoExtractorRegex)
+		outputList = OutputList(outputSearchPath, outputInfoExtractorRegex)
 		logger.info(outputList.submissionList)
 	except Exception as e:
 		print(e)

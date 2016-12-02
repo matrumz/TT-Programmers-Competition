@@ -4,25 +4,20 @@ class InputList:
 
 	fileDict = {}
 
-	def __init__(self, searchPath, fileGlob, numberRegex):
+	def __init__(self, searchPath, numberRegex):
 		try:
-			os.chdir(searchPath)
-			for f in glob.glob(fileGlob):
+			for f in os.listdir(searchPath):
 				match = re.search(numberRegex, f)
 				if match:
 					self.fileDict[match.group(1)] = '{}{}'.format(searchPath, f)
 		except:
 			raise
-		finally:
-			# This is getting me back to the root directory assuming successful navigation to searchPath
-			if not os.path.exists(searchPath):
-				os.chdir('../')
 
 class OutputList:
 	
 	submissionList = []
 
-	def __init__(self, searchPath, fileGlob, infoCaptureRegex):
+	def __init__(self, searchPath, infoCaptureRegex):
 		try:
 			for f in os.listdir(searchPath):
 				match = re.search(infoCaptureRegex, f)
@@ -30,11 +25,6 @@ class OutputList:
 					self.submissionList.append(Submission(match.group(1), match.group(2), match.group(3), '{}{}'.format(searchPath, f)))
 		except:
 			raise
-		finally:
-			# This is getting me back to the root directory assuming successful navigation to searchPath
-			if not os.path.exists(searchPath):
-				os.chdir('../')
-
 
 class Submission:
 	name = ""
