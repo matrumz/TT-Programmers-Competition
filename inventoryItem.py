@@ -10,9 +10,9 @@ class InventoryItem:
 	def __init__(self, name, value, weight, volume, fG):
 
 		self.name = name
-
 		try:
-			self.value = float(value)
+			# Replace only the first dollar sign if found, more will be cause for error
+			self.value = float(str(value).replace('$','',1))
 			self.weight = float(weight)
 			self.volume = float(volume)
 		except ValueError:
@@ -22,3 +22,7 @@ class InventoryItem:
 			self.fG = fG
 		else:
 			raise ValueError('"{}" is not a valid food group'.format(fG))
+
+		# Error on negatives
+		if (self.value < 0 or self.weight < 0 or self.volume < 0):
+			raise ValueError('Negative values not allowed in InventoryItems')

@@ -32,14 +32,14 @@ def moduleTest():
 
 	# Test inputparams
 	try:
-		param = InputParams('e',3,4)
+		param = InputParams('$5','3',4)
 	except ValueError as e:
 		logger.error(e)
 	
 	# Test InventoryItem
 	cat = []
 	try:
-		cat.append(InventoryItem('Rum','9000', 1, '0.1', 'grains'))
+		cat.append(InventoryItem('Rum','$9000', 1, '0.1', 'grains'))
 		logger.info('I would spend ${} on {}'.format(cat[0].value, cat[0].name))
 	except ValueError as e:
 		logger.error('could not add item b/c: {}'.format(e), 32)
