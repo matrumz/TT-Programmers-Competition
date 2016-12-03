@@ -2,10 +2,10 @@
 
 from inputParams import InputParams
 from logger import Logger
-from inventoryItem import InventoryItem
+from inventoryItem import InventoryItem, possibleFG
 from purchaseItem import PurchaseItem
 from fileLists import InputList, OutputList
-#from results import Result, SubmissionResult
+from results import SubmissionResult
 import sys, re
 
 class Grader():
@@ -66,14 +66,63 @@ class Grader():
 			for submission in submissionList: # foreach submission file...
 				if str(submission.inputNumber) != str(inputNumberKey): # where applies to current input file
 					continue
-				try:
+				try: # Parse submission file
 					submissionContents = self.loadOutputFile(submission.path)
-					print(submissionContents)
 				except Exception as e:
 					self.syslog.error("Error loading OUTPUT FILE {}: {}".format(submission.path, e))
-				#try:
-				#	result = self.validateOutputFile(submissionContents)
+				try: # Validate answer (solution)
+					result = self.validateOutputFile(submissionContents, submission.path, submission.task)
+					print(result)
+				except Exception as e:
+					self.syslog.error("Error validating submission {}: {}".format(submission.path, e))
 	
+	def validateOutputFile(self, pItems, path, task):
+		sumCost = 0.0
+		sumWeight = 0.0
+		sumVolume = 0.0
+		sumCategories = {}
+		for cat in possibleFG:
+			sumCategories[cat] = 0
+		numItems = 0
+		itemPurchaseAmount = {}
+		overPurchasedItemDict = {}
+		
+		# Get results of all purchases
+		for p in pItems:
+			i = {}
+			# Find the item in the inventory list
+			try:
+				iList = list(filter(lambda invItem: invItem.name == p.name, self.inventoryList))
+				if len(iList) > 1:
+					raise ValueError("Item '{}' found more than once in catalogue".format(p.name))
+				elif len(iList) < 1:
+					raise IndexError("Filter failed to find item")
+				else: # == 1
+					i = iList[0]
+			except IndexError:
+				self.syslog.warning("Item '{}' not found in catalogue".format(p.name), None, path)
+				continue
+			except Exception as e:
+				self.syslog.warning("Error finding '{}' in catalogue: {}".format(p.name, e), None, path)
+				continue
+
+			# Calculate sums
+			sumCost += p.amount * i.value
+			sumWeight += p.amount * i.weight
+			sumVolume += p.amount * i.volume
+			sumCategories[i.fG] += p.amount
+			numItems += p.amount
+			if p.name in itemPurchaseAmount:
+				itemPurchaseAmount[p.name] += p.amount
+			else:
+				itemPurchaseAmount[p.name] = p.amount
+			purchasedAmount = itemPurchaseAmount[p.name]
+			if purchasedAmount > i.quantity:
+				overPurchasedItemDict[p.name] = purchasedAmount;
+
+		# Return computed result
+		return SubmissionResult(numItems, overPurchasedItemDict, sumCost, sumWeight, sumVolume, sumCategories, self.inputParam, task)
+
 	def loadOutputFile(self,path):
 		fileContents = ""
 		purchases = []

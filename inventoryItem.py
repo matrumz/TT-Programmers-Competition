@@ -1,4 +1,4 @@
-possibleFG = {"grains", "dairy", "veggies", "meat"}
+possibleFG = ["grains", "dairy", "veggies", "meat"]
 class InventoryItem:
 	name = ""
 	quantity = 0

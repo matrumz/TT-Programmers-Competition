@@ -9,6 +9,8 @@ class PurchaseItem:
 
 		if numericAmount.is_integer():
 			self.amount = int(numericAmount)
+		elif numericAmount == 0:
+			raise ZeroDivisionError("Can't purchase 0 of item")
 		else:
 			raise ValueError('{} is not an integer purchase amount.'.format(amount))
 
