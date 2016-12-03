@@ -72,7 +72,7 @@ class Grader():
 					self.syslog.error("Error loading OUTPUT FILE {}: {}".format(submission.path, e))
 				try: # Validate answer (solution)
 					result = self.validateOutputFile(submissionContents, submission.path, submission.task)
-					print(result)
+					self.syslog.result(submission.name, submission.task, submission.inputNumber, result)
 				except Exception as e:
 					self.syslog.error("Error validating submission {}: {}".format(submission.path, e))
 	
