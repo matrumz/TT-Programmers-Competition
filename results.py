@@ -23,10 +23,10 @@ class SubmissionResult:
 			self.fGDistribution[key] = value/self.totalItems
 
 		self.overPurchased = len(self.overPurchasedItemsDict) > 0
-		self.overCost = self.totalCost > params.moneyLimit
-		self.overWeight = self.totalWeight > params.weightLimit and int(task) > 1
-		self.badDist = any(dist > .3 or dist < .2 for dist in self.fGDistribution.values()) and task == "3"
-		self.overVolume = self.totalVolume > params.volumeLimit and task == "4"
+		self.overCost      = self.totalCost > params.moneyLimit
+		self.overWeight    = int(task) > 1  and self.totalWeight > params.weightLimit
+		self.badDist       = int(task) == 3 and any(dist > .3 or dist < .2 for dist in self.fGDistribution.values())
+		self.overVolume    = int(task) == 4 and self.totalVolume > params.volumeLimit
 
 	def __repr__(self):
 		return 'totalItems:{}\noverPurchasedItemsDict:{}\ntotalCost:{}\ntotalweight:{}\ntotalVolume:{}\nfGDistribution:{}\noverPurchased:{}\noverCost:{}\noverWeight:{}\noverVolume:{}\nbadDist:{}\n'.format(self.totalItems, self.overPurchasedItemsDict, self.totalCost, self.totalWeight, self.totalVolume, self.fGDistribution, self.overPurchased, self.overCost, self.overWeight, self.overVolume, self.badDist)

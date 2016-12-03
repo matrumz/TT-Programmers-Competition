@@ -82,11 +82,11 @@ class ResultEntry:
 		if self.result.overVolume:
 			fR += "Volume too high: {}\n".format(self.result.totalVolume)
 		if self.result.badDist:
-			fR += "Bad food group distribution: {]\n".format(self.result.fGDistribution)
+			fR += "Bad food group distribution: {}\n".format(self.result.fGDistribution)
 
 		if len(fR) == 0:
-			outString = "<{} PASSED task {} input {} with {} items and the following stats:\n{}>\n".format(self.entrant, self.task, self.inputNumber, self.result.totalItems, self.result)
+			outString = "<\n{} PASSED task {} input {} with {} items and the following stats:\n{}>\n".format(self.entrant, self.task, self.inputNumber, self.result.totalItems, self.result)
 		else:
-			outString = "<{} FAILED task {} input {} because of the following reasons:\n{}>\n".format(self.entrant, self.task, self.inputNumber, fR)
+			outString = "<\n{} FAILED task {} input {} because of the following reasons:\n{}>\n".format(self.entrant, self.task, self.inputNumber, fR)
 
 		return outString

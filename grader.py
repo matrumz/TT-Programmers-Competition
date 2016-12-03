@@ -64,6 +64,7 @@ class Grader():
 				continue #skip to next input file
 			
 			for submission in submissionList: # foreach submission file...
+				result = {}
 				if str(submission.inputNumber) != str(inputNumberKey): # where applies to current input file
 					continue
 				try: # Parse submission file
