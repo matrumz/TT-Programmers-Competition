@@ -1,5 +1,3 @@
 *.swp
-inputs/
-outputs/
 __pycache__/
 log.txt

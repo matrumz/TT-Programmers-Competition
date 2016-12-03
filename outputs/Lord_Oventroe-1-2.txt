@@ -1,0 +1,14 @@
+Havarticheese, 82;
+canolaoil, 58;
+chicken, 72;
+cornstarch, 19;
+cream, 25;
+currypaste, 68;
+habanerochilies, 51;
+jellybeans, 79;
+lemonjuice, 16;
+plums, 15;
+shitakes, 40;
+sourcream, 35;
+sushi, 98;
+venison, 32;
