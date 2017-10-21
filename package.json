@@ -1,0 +1,29 @@
+{
+    "name": "TT-Programmers-Competition-2017",
+    "description": "Grader for the 2017 competition.",
+    "author": {
+        "name": "Mathew Rumsey (matrumz)",
+        "url": "https://github.com/matrumz"
+    },
+    "contributors": [
+        "matrumz"
+    ],
+    "repository": {
+        "url": "https://github.com/matrumz/TT-Programmers-Competition",
+        "type": "git"
+    },
+    "version": "0.0.1",
+    "main": "./dist/eval.js",
+    "types": "./dist/eval.d.ts",
+    "dependencies": {
+        "core-js": "*",
+        "underscore": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/core-js": "*",
+        "@types/underscore": "*",
+        "typescript": "*"
+    },
+    "scripts": {}
+}
