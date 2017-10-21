@@ -4,7 +4,6 @@ import * as libF from "./lib/functions";
 import * as sub from "./submission";
 import * as task from "./task";
 
-
 export class Evaluator
 {
     constructor(
@@ -19,6 +18,7 @@ export class Evaluator
         this.tasks = [];
         this.submissions = [];
 
+        /* Try to make the sourcesPath absolute for ease-of-use later */
         try {
             this.sourcesPath = path.resolve(process.cwd(), this.sourcesPath)
         } catch (e) {
@@ -27,6 +27,17 @@ export class Evaluator
             return;
         }
 
+        /* Load tasks from input files */
+        if (!this.loadInputs()) return;
+    }
+
+
+    /**
+     * Load the Tasks from the Input files
+     * @returns Success If false, program execution should stop
+     */
+    private loadInputs(): boolean
+    {
         console.log("Loading inputs...");
         var currentInput: string = "";
         try {
@@ -41,14 +52,16 @@ export class Evaluator
             console.error("Reason: " + (<Error>e).message);
             return;
         }
-        console.log("Loading inputs (" + this.tasks.length + ") DONE.");
-        if (debugMode)
+        if (debugMode) {
             this.tasks.forEach((task) =>
             {
                 console.log("");
                 console.log("Task: " + task.taskNumber);
                 console.log(JSON.stringify(task));
             });
+            console.log("");
+        }
+        console.log("Loading inputs (" + this.tasks.length + ") DONE.");
     }
 
 
@@ -65,6 +78,5 @@ if (process.argv.length >= 3)
     inOutPath = process.argv[2];
 if (process.argv.length >= 4)
     debugMode = libF.string2Bool(process.argv[3]);
-
 
 var e = new Evaluator(inOutPath);
