@@ -42,6 +42,11 @@ export class Evaluator
             return;
         }
         console.log("Loading inputs DONE.");
+        if (debugMode)
+            this.tasks.forEach((task) =>
+            {
+                console.log(JSON.stringify(task));
+            });
     }
 
 
@@ -51,9 +56,13 @@ export class Evaluator
 }
 
 process.chdir(__dirname);
+export var debugMode: boolean = false;
 
 var inOutPath: string;
 if (process.argv.length >= 3)
     inOutPath = process.argv[2];
+if (process.argv.length >= 4)
+    debugMode = libF.string2Bool(process.argv[3]);
+
 
 var e = new Evaluator(inOutPath);

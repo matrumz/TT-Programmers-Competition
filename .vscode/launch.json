@@ -10,7 +10,8 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}\\dist\\eval.js",
             "args": [
-                "../test/"
+                "../test/",
+                "true"
             ],
             // "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
