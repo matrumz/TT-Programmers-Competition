@@ -41,10 +41,12 @@ export class Evaluator
             console.error("Reason: " + (<Error>e).message);
             return;
         }
-        console.log("Loading inputs DONE.");
+        console.log("Loading inputs (" + this.tasks.length + ") DONE.");
         if (debugMode)
             this.tasks.forEach((task) =>
             {
+                console.log("");
+                console.log("Task: " + task.taskNumber);
                 console.log(JSON.stringify(task));
             });
     }

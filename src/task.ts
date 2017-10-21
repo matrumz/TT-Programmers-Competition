@@ -64,19 +64,39 @@ export class Task implements ITask
 
     public load(path: string): void
     {
+        var fileContents: string;
+        this.validTask = false;
+
+        /*
+         * First step, read in the file and get its task number
+         * Failure here is a problem...
+         */
         try {
-            var taskObj: ITask = JSON.parse(fs.readFileSync(path).toString())
+            fileContents = fs.readFileSync(path).toString();
+            this.taskNumber = Task.parseTaskNumber(path);
+        } catch (e) {
+            throw new Error("Could not read file or parse task number of input file: " + path + ": " + e.toString());
+        }
+
+        /*
+         * After reading in the file, try to get the JSON object and validate the result.
+         * We anticipate having tests with "corrupt" files, so failure here can actually be expected.
+         */
+        try {
+            const taskObj = JSON.parse(fileContents);
 
             this.parameters = taskObj.parameters;
             this.staff = taskObj.staff;
             this.schedule = taskObj.schedule;
 
-            this.taskNumber = Task.parseTaskNumber(path);
-
             Task.validate(this);
         } catch (e) {
-            throw new Error("Could not load input file: " + path + ": " + (<Error>e).message);
+            console.warn("Input file: " + path + " failed loading: " + (<Error>e).message);
+            console.warn("WILL CONTINUE");
+            return;
         }
+
+        this.validTask = true;
     }
 
     /**
@@ -99,17 +119,21 @@ export class Task implements ITask
 
     public static parseTaskNumber(taskPath: string): number
     {
-        try {
-            return parseInt(path.parse(taskPath).name.split('.')[1]);
-        }
-        catch (e) {
-            throw new Error("Could not parse task number: " + (<Error>e).message);
-        }
+        const match = path.parse(taskPath).name.match(/^input\.(\d+)$/i);
+        if (!match)
+            throw new Error("Invalid input file name.");
+
+        var taskNum = parseInt(match[1]);
+        if (isNaN(taskNum))
+            throw new Error("Input number is not a valid integer value");
+
+        return taskNum;
     }
 
     public parameters: IParameters;
     public staff: IStaff[];
     public schedule: ISchedule;
 
+    public validTask: boolean;
     public taskNumber: number;
 }
