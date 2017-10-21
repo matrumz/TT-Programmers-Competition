@@ -43,3 +43,19 @@ export function walk(dir: string, recursive: boolean, relativeResults: boolean =
 
     return filesList;
 }
+
+export function string2Bool(str: string): boolean
+{
+    str = (str || "false").toLowerCase();
+
+    switch (str) {
+        case 'y':
+        case 'yea':
+        case 'yes':
+        case 'true':
+        case '1':
+            return true;
+        default:
+            return false;
+    }
+}

@@ -71,6 +71,8 @@ export class Task implements ITask
             this.staff = taskObj.staff;
             this.schedule = taskObj.schedule;
 
+            this.taskNumber = Task.parseTaskNumber(path);
+
             Task.validate(this);
         } catch (e) {
             throw new Error("Could not load input file: " + path + ": " + (<Error>e).message);
@@ -95,7 +97,19 @@ export class Task implements ITask
         }
     }
 
-    parameters: IParameters;
-    staff: IStaff[];
-    schedule: ISchedule;
+    public static parseTaskNumber(taskPath: string): number
+    {
+        try {
+            return parseInt(path.parse(taskPath).name.split('.')[1]);
+        }
+        catch (e) {
+            throw new Error("Could not parse task number: " + (<Error>e).message);
+        }
+    }
+
+    public parameters: IParameters;
+    public staff: IStaff[];
+    public schedule: ISchedule;
+
+    public taskNumber: number;
 }
