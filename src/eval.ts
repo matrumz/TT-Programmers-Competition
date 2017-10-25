@@ -29,8 +29,9 @@ export class Evaluator
 
         /* Load tasks from input files */
         if (!this.loadInputs()) return;
+        /* Load submissions from output files */
+        if (!this.loadSubmissions()) return;
     }
-
 
     /**
      * Load the Tasks from the Input files
@@ -47,10 +48,15 @@ export class Evaluator
                 this.tasks.push(new task.Task(inputPath));
             });
         } catch (e) {
+            /*
+             * I am anticipating all Errors to be caught during build.
+             * If any sneak through to here, I need to figure out what's happening and fix it.
+             * Therefore, quit program execution if this catch is fired.
+             */
             console.error("Could not load all inputs.");
             console.error("Failed on: " + currentInput);
-            console.error("Reason: " + (<Error>e).message);
-            return;
+            console.error("Reason: " + e.toString());
+            return false;
         }
         if (debugMode) {
             this.tasks.forEach((task) =>
@@ -62,8 +68,48 @@ export class Evaluator
             console.log("");
         }
         console.log("Loading inputs (" + this.tasks.length + ") DONE.");
+
+        return true;
     }
 
+    /**
+     * Load the Submissions for the Output files
+     * @returns Success If false, program execution should stop
+     */
+    private loadSubmissions(): boolean
+    {
+        console.log("Loading submissions...");
+        var currentSubmission: string = "";
+        try {
+            libF.walk(path.resolve(this.sourcesPath, "outputs/"), false, false).forEach((submissionPath) =>
+            {
+                currentSubmission = submissionPath;
+                this.submissions.push(new sub.Submission(submissionPath));
+            });
+        } catch (e) {
+            /*
+             * I am anticipating all Errors to be caught during build.
+             * If any sneak through to here, I need to figure out what's happening and fix it.
+             * Therefore, quit program execution if this catch is fired.
+             */
+            console.error("Could not load all submissions.");
+            console.error("Failed on: " + currentSubmission);
+            console.error("Reason: " + e.toString());
+            return false;
+        }
+        if (debugMode) {
+            this.submissions.forEach((submission) =>
+            {
+                console.log("");
+                console.log("Submission: " + libF.join([submission.firstName, submission.lastName, submission.taskNumber], " "));
+                console.log(JSON.stringify(submission));
+            });
+            console.log("");
+        }
+        console.log("Loading submissions (" + this.submissions.length + ") DONE.")
+
+        return true;
+    }
 
     sourcesPath: string;
     tasks: task.Task[];

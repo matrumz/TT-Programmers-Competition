@@ -59,3 +59,21 @@ export function string2Bool(str: string): boolean
             return false;
     }
 }
+
+/**
+ * Takes an array and returns the string representation of the items separated by an optional delimiter.
+ * @param a Array of anything with toString() defined
+ * @param delim An optional delimiter, that will be placed between each element of the array. DEFAULT: ","
+ */
+export function join(a: any[], delim: string = ","): string
+{
+    var result: string = "";
+    a.forEach((e, index) =>
+    {
+        result += (e || "").toString();
+        if (index < (a.length - 1))
+            result += delim;
+    });
+
+    return result;
+}
