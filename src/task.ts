@@ -56,13 +56,13 @@ export interface ITask
 export class Task implements ITask
 {
     constructor(
-        path: string
+        filePath: string
     )
     {
-        this.load(path);
+        this.load(filePath);
     }
 
-    public load(path: string): void
+    public load(filePath: string): void
     {
         var fileContents: string;
         this.validTask = false;
@@ -72,10 +72,10 @@ export class Task implements ITask
          * Failure here is a problem...
          */
         try {
-            fileContents = fs.readFileSync(path).toString();
-            this.taskNumber = Task.parseTaskNumber(path);
+            fileContents = fs.readFileSync(filePath).toString();
+            this.taskNumber = Task.parseTaskNumber(filePath);
         } catch (e) {
-            throw new Error("Could not read file or parse task number of input file: " + path + ": " + e.toString());
+            throw new Error("Could not read file or parse task number of input file: " + filePath + ": " + e.toString());
         }
 
         /*
@@ -91,7 +91,7 @@ export class Task implements ITask
 
             Task.validate(this);
         } catch (e) {
-            console.warn("Input file: " + path + " failed loading: " + (<Error>e).message);
+            console.warn("Input file: " + filePath + " failed loading: " + (<Error>e).message);
             console.warn("WILL CONTINUE");
             return;
         }
