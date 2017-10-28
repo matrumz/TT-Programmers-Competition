@@ -1,26 +1,26 @@
 import { ISubmitter } from "./models/ISubmitter";
 import { join } from "./lib/functions";
 
-class SubmissionCheckResult implements ISubmitter
+export class SubmissionCheckResult
 {
     constructor(
-        public firstName: string,
-        public lastName: string,
-        public code: string,
-        public taskNumber: number,
-        public basicTask: boolean,
-        public outputLoaded: boolean,
-        public canBeScheduled: boolean,
-        public validSchedule: boolean
+        public firstName?: string,
+        public lastName?: string,
+        public code?: string,
+        public taskNumber?: number,
+        public basicTask?: boolean,
+        public outputLoaded?: boolean,
+        public canBeScheduled?: boolean,
+        public validSchedule?: boolean
     ) { }
 
     public toString(): string
     {
         return join([
-            this.firstName,
-            this.lastName,
+            (this.firstName || ""),
+            (this.lastName || ""),
             (this.code || ""),
-            this.taskNumber,
+            (this.taskNumber || ""),
             this.excelifyBoolean(this.basicTask),
             this.excelifyBoolean(this.outputLoaded),
             this.excelifyBoolean(this.canBeScheduled),
