@@ -3,6 +3,8 @@ import * as process from "process";
 import * as libF from "./lib/functions";
 import * as sub from "./submission";
 import * as task from "./task";
+import * as CheckResult from "./submissionCheckResult";
+import * as Checker from "./checker";
 
 export class Evaluator
 {
@@ -31,6 +33,8 @@ export class Evaluator
         if (!this.loadInputs()) return;
         /* Load submissions from output files */
         if (!this.loadSubmissions()) return;
+
+        this.eval();
     }
 
     /**
@@ -109,6 +113,12 @@ export class Evaluator
         console.log("Loading submissions (" + this.submissions.length + ") DONE.")
 
         return true;
+    }
+
+    private eval(): void
+    {
+        var c = new Checker.Checker(this.tasks[0]);
+        c.checkTaskSubmissions(this.submissions)
     }
 
     sourcesPath: string;

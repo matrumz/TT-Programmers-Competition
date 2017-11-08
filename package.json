@@ -20,10 +20,10 @@
         "underscore": "*"
     },
     "devDependencies": {
-        "@types/node": "*",
         "@types/core-js": "*",
-        "@types/underscore": "*",
-        "typescript": "*"
+        "@types/node": "^8.0.50",
+        "@types/underscore": "^1.8.4",
+        "typescript": "^2.6.1"
     },
     "scripts": {}
 }
