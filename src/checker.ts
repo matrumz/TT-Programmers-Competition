@@ -144,7 +144,7 @@ export class Checker
             if (startHour < 0 || startHour > 23) throw new Error("Invalid start hour.");
             if (endHour < 0 || endHour > 23) throw new Error("Invalid end hour.");
 
-            return (endHour - startHour) % 24;
+            return ((endHour + 24) - startHour) % 24;
         }).reduce((accumulated, current): number =>
         {
             return accumulated + current;
@@ -158,7 +158,7 @@ export class Checker
             if (startMin < 0 || startMin > 59) throw new Error("Invalid start min.");
             if (endMin < 0 || endMin > 59) throw new Error("Invalid end min.");
 
-            return (endMin - startMin) % 60;
+            return ((endMin + 60) - startMin) % 60;
         }).reduce((accumulated, current): number =>
         {
             return accumulated + current
