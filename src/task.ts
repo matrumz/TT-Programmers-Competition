@@ -95,8 +95,6 @@ export class Task implements ITask
             console.warn("WILL CONTINUE");
             return;
         }
-
-        this.validTask = true;
     }
 
     /**
@@ -115,6 +113,8 @@ export class Task implements ITask
         } catch (e) {
             throw new Error("Validation failed: " + (<Error>e).message);
         }
+
+        task.validTask = true;
     }
 
     public static parseTaskNumber(taskPath: string): number
