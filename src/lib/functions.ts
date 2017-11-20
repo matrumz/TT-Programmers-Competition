@@ -77,3 +77,20 @@ export function join(a: any[], delim: string = ","): string
 
     return result;
 }
+
+/**
+ * Checks if the first value is between the next two values (low/high), optionally exclusively.
+ * @param check Number to check
+ * @param l Lower bound
+ * @param h Upper bound
+ * @param inclusive Should the check be inclusive of the bounds?
+ */
+export function between(check: number, l: number, h: number, inclusive: boolean = true): boolean
+{
+    if (check == null || l == null || h == null) return false;
+
+    if (inclusive)
+        return l <= check && check <= h;
+    else
+        return l < check && check < h;
+}

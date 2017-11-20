@@ -94,10 +94,43 @@ export class Checker
     {
         const employees: T.IStaff[] = this.task.staff;
 
+        var debugMsg = (b: S.Submission, e: T.IStaff, s: IStaffSummary, m: string): string =>
+        {
+            return (b.firstName + " " + b.lastName + " failed task " + b.taskNumber + " because " + m + " with employee " + e.name);
+        };
+
         employees.forEach((employee) =>
         {
             try {
                 const summary = Checker.getEmployeeSummary(employee.name, sub);
+
+                /* Check hours worked */
+                if (this.task.parameters.useMinMaxHours && !libF.between(summary.sumHoursWorked, employee.minHours, employee.maxHours)) {
+                    console.log(debugMsg(sub, employee, summary, "sum hours worked"));
+                    return false;
+                }
+                /* Check back-to-back shifts */
+                if (Checker.longestCountBackToBackShifts(summary) > (this.task.parameters.doubleShiftsAllowed ? 1 : 0)) {
+                    console.log(debugMsg(sub, employee, summary, "back to back shifts"));
+                    return false;
+                }
+                /* Max successive days */
+                if (Checker.countSuccessiveDays(summary) > this.task.parameters.maxSuccessiveDays) {
+                    console.log(debugMsg(sub, employee, summary, "successive days"));
+                    return false;
+                }
+                /* Check capabilities */
+                const rolesToCheck: string[] = this.task.parameters.useStaffCapabilities ? employee.capabilities : this.rolesNeeded;
+                if (_.difference(summary.rolesWorked, rolesToCheck).length || _.difference(rolesToCheck, summary.rolesWorked).length) {
+                    console.log(debugMsg(sub, employee, summary, "capabilities"));
+                    return false;
+                }
+                /* Check for double-booking */
+                if (summary.shiftsWorked.length != _.uniq(summary.shiftsWorked.map((shift) => { return shift.day.toString() + shift.start.toString() + shift.end.toString() })).length) {
+                    console.log(debugMsg(sub, employee, summary, "double booking"));
+                    return false;
+                }
+
             } catch (e) {
                 throw new Error("Unable to validate employee '" + employee.name + "': " + e.toString());
             }
@@ -176,6 +209,43 @@ export class Checker
         return s;
     }
 
+    private static longestCountBackToBackShifts(summary: IStaffSummary): number
+    {
+        const sortedShifts: IShiftSummary[] = summary.shiftsWorked.sort(Checker.shiftSort);
+        const numShifts: number = sortedShifts.length;
+        var longestBackToBackShifts: number = 0;
+        var currentChainLength: number = 0;
+
+        for (var i = 0; i <= (numShifts - 2); i++) {
+            if (sortedShifts[i].day === sortedShifts[i + 1].day && sortedShifts[i].end === sortedShifts[i + 1].start)
+                currentChainLength++;
+            else if ((sortedShifts[i].day + 1) === sortedShifts[i + 1].day && sortedShifts[i].end === 0 && sortedShifts[i + 1].start === 0)
+                currentChainLength++;
+            else
+                currentChainLength = 0;
+
+            longestBackToBackShifts = Math.max(longestBackToBackShifts, currentChainLength);
+        }
+
+        return longestBackToBackShifts;
+    }
+
+    private static countSuccessiveDays(summary: IStaffSummary): number
+    {
+        var numDays: number = summary.daysWorked.length;
+        var longestDayChain: number = 0;
+        var currentChainLength: number = 0;
+
+        for (var i = 0; i <= numDays - 2; i++) {
+            if ((summary.daysWorked[i] + 1) === summary.daysWorked[i + 1])
+                currentChainLength++;
+
+            longestDayChain = Math.max(longestDayChain, currentChainLength);
+        }
+
+        return longestDayChain;
+    }
+
     private checkScheduleShifts(sub: S.Submission): boolean
     {
         return true;
@@ -213,5 +283,23 @@ export class Checker
         }
 
         return _.uniq(filteredRoles);
+    }
+
+    private static shiftSort(a: IShiftSummary, b: IShiftSummary): -1 | 0 | 1
+    {
+        if (a.day < b.day)
+            return -1
+        else if (a.day > b.day)
+            return 1
+        else if (a.start < b.start)
+            return -1
+        else if (a.start > b.start)
+            return 1
+        else if (a.end < b.end)
+            return -1
+        else if (a.end > b.end)
+            return 1
+        else
+            return 0
     }
 }
