@@ -1,4 +1,5 @@
 {
+    "canBeScheduled": true,
     "parameters": {
         "maxSuccessiveDays": 4,
         "doubleShiftsAllowed": true,
