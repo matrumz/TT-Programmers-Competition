@@ -1,0 +1,450 @@
+{
+    "parameters": {
+        "maxSuccessiveDays": 4,
+        "doubleShiftsAllowed": true,
+        "useMinMaxHours": true,
+        "useStaffCapabilities": false
+    },
+    "staff": [
+        {
+            "name": "River Tam",
+            "capabilities": [
+                "cashier",
+                "inventory",
+                "manager",
+                "maintenance",
+                "PR"
+            ],
+            "maxHours": 40,
+            "minHours": 32
+        },
+        {
+            "name": "Jayne Cobb",
+            "capabilities": [
+                "cashier",
+                "inventory",
+                "maintenance",
+                "PR"
+            ],
+            "maxHours": 48,
+            "minHours": 40
+        },
+        {
+            "name": "Malcolm Reynolds",
+            "capabilities": [
+                "cashier",
+                "inventory",
+                "manager",
+                "maintenance",
+                "PR"
+            ],
+            "maxHours": 40,
+            "minHours": 32
+        },
+        {
+            "name": "Kaylee Frye",
+            "capabilities": [
+                "cashier",
+                "inventory",
+                "manager",
+                "maintenance",
+                "PR"
+            ],
+            "maxHours": 40,
+            "minHours": 40
+        }
+    ],
+    "schedule": {
+        "roles": [
+            "cashier",
+            "inventory",
+            "manager",
+            "maintenance",
+            "PR",
+            "delivery driver"
+        ],
+        "days": [
+            {
+                "day": 1,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 2
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            },
+                            {
+                                "role": "manager",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 1
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "positions": [
+                            {
+                                "role": "maintenance",
+                                "count": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 2,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 1
+                            },
+                            {
+                                "role": "manager",
+                                "count": 1
+                            },
+                            {
+                                "role": "PR",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 2
+                            },
+                            {
+                                "role": "delivery driver",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "positions": [
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 3,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            },
+                            {
+                                "role": "manager",
+                                "count": 1
+                            },
+                            {
+                                "role": "PR",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "manager",
+                                "count": 1
+                            },
+                            {
+                                "role": "delivery driver",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "positions": [
+                            {
+                                "role": "manager",
+                                "count": 1
+                            },
+                            {
+                                "role": "PR",
+                                "count": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 4,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            },
+                            {
+                                "role": "maintenance",
+                                "count": 1
+                            },
+                            {
+                                "role": "PR",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "positions": [
+                            {
+                                "role": "maintenance",
+                                "count": 1
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            },
+                            {
+                                "role": "delivery driver",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "positions": [
+                            {
+                                "role": "maintenance",
+                                "count": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 5,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 1
+                            },
+                            {
+                                "role": "manager",
+                                "count": 0
+                            },
+                            {
+                                "role": "PR",
+                                "count": 1
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "PR",
+                                "count": 1
+                            },
+                            {
+                                "role": "delivery driver",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "positions": [
+                            {
+                                "role": "manager",
+                                "count": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 6,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            },
+                            {
+                                "role": "manager",
+                                "count": 0
+                            },
+                            {
+                                "role": "PR",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            },
+                            {
+                                "role": "delivery driver",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "positions": [
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 7,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 0
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            },
+                            {
+                                "role": "manager",
+                                "count": 0
+                            },
+                            {
+                                "role": "maintenance",
+                                "count": 1
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "positions": [
+                            {
+                                "role": "cashier",
+                                "count": 1
+                            },
+                            {
+                                "role": "inventory",
+                                "count": 0
+                            },
+                            {
+                                "role": "delivery driver",
+                                "count": 0
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "positions": [
+                            {
+                                "role": "PR",
+                                "count": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
