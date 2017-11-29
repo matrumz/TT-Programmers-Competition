@@ -16,6 +16,11 @@ export interface IPositionSummary extends IShiftSummary
     role: string;
 }
 
+export interface ITaskPositionsSummary extends IPositionSummary
+{
+    neededCount: number;
+}
+
 export interface IStaffSummary
 {
     daysWorked: number[];
@@ -32,10 +37,12 @@ export class Checker
     {
         this.basicTask = Checker.checkForBasicFlag(task);
         this.rolesNeeded = Checker.filterNeededRoles(task);
+        this.taskPositions = Checker.flattenTaskPositionRequirements(task);
     }
 
     private basicTask: boolean;
     private rolesNeeded: string[];
+    private taskPositions: ITaskPositionsSummary[];
 
     public checkTaskSubmissions(subs: S.Submission[]): R.SubmissionCheckResult[]
     {
@@ -82,6 +89,7 @@ export class Checker
 
     private checkSchedule(sub: S.Submission): boolean
     {
+        //TODO: right here is probably where I'll check the input's "canbescheduled" against the submission's
         if (!sub.canBeScheduled) return true;
 
         if (!this.checkScheduleEmployees(sub)) return false;
@@ -248,6 +256,68 @@ export class Checker
 
     private checkScheduleShifts(sub: S.Submission): boolean
     {
+        var debugMsg = (b: S.Submission, s: S.IShift, d: number, m: string) =>
+        {
+            return (b.firstName + " " + b.lastName + " failed task " + b.taskNumber + " because " + m + " with shift " + s.start + "-" + s.end + " on day " + d);
+        };
+
+        sub.schedule.days.forEach((day) =>
+        {
+            day.shifts.forEach((shift) =>
+            {
+                const positionsInShift = shift.roster.map((rosterPosition) =>
+                {
+                    return rosterPosition.role;
+                });
+
+                /* Check that all needed positions are listed in every shift, even if needed amount is 0 */
+                if (_.difference(this.rolesNeeded, positionsInShift).length > 0 || _.difference(positionsInShift, this.rolesNeeded).length > 0) {
+                    console.log(debugMsg(sub, shift, day.day, "shift does not list all required roles"));
+                    return false;
+                }
+
+                try {
+                    /* Check to make sure all positions filled to the exact amounts required */
+                    shift.roster.forEach((rosterPosition) =>
+                    {
+                        var filteredTaskPositions = this.taskPositions.filter((tp) =>
+                        {
+                            return (
+                                tp.day == day.day
+                                && tp.start == shift.start
+                                && tp.end == shift.end
+                            );
+                        });
+
+                        if (!filteredTaskPositions.length) {
+                            console.log(debugMsg(sub, shift, day.day, "this shift could not be identified"));
+                            throw new EvalError();
+                        }
+                        var taskPosition = filteredTaskPositions.find((tp) =>
+                        {
+                            return tp.role == rosterPosition.role;
+                        });
+                        if (!taskPosition) {
+                            taskPosition = {
+                                neededCount: 0,
+                                role: rosterPosition.role,
+                                day: day.day,
+                                start: shift.start,
+                                end: shift.end
+                            };
+                        }
+
+                        if (!rosterPosition.people || taskPosition.neededCount != rosterPosition.people.length) {
+                            console.log(debugMsg(sub, shift, day.day, "role " + rosterPosition.role + " does not have the correct number of people"));
+                            throw new EvalError();
+                        }
+                    });
+                } catch (e) {
+                    if (e instanceof EvalError)
+                        return false;
+                }
+            });
+        });
         return true;
     }
 
@@ -301,5 +371,29 @@ export class Checker
             return 1
         else
             return 0
+    }
+
+    private static flattenTaskPositionRequirements(t: T.Task): ITaskPositionsSummary[]
+    {
+        var data: ITaskPositionsSummary[] = []
+
+        t.schedule.days.forEach((day) =>
+        {
+            day.shifts.forEach((shift) =>
+            {
+                shift.positions.forEach((position) =>
+                {
+                    data.push({
+                        neededCount: position.count,
+                        role: position.role,
+                        end: shift.end,
+                        start: shift.start,
+                        day: day.day
+                    });
+                });
+            });
+        });
+
+        return data;
     }
 }
