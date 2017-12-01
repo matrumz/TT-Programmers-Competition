@@ -46,6 +46,7 @@ export interface ISchedule
 
 export interface ITask
 {
+    canBeScheduled: boolean;
     parameters: IParameters;
     staff: IStaff[];
     schedule: ISchedule;
@@ -66,6 +67,7 @@ export class Task implements ITask
     {
         var fileContents: string;
         this.validTask = false;
+        this.canBeScheduled = false;
 
         /*
          * First step, read in the file and get its task number
@@ -88,6 +90,7 @@ export class Task implements ITask
             this.parameters = taskObj.parameters;
             this.staff = taskObj.staff;
             this.schedule = taskObj.schedule;
+            this.canBeScheduled = taskObj.canBeScheduled;
 
             Task.validate(this);
         } catch (e) {
@@ -130,6 +133,7 @@ export class Task implements ITask
         return taskNum;
     }
 
+    public canBeScheduled: boolean;
     public parameters: IParameters;
     public staff: IStaff[];
     public schedule: ISchedule;

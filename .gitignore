@@ -61,4 +61,7 @@ typings/
 dist/
 
 # Test files
-test/
+#test/
+
+# Well duh
+ignore/

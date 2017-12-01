@@ -117,8 +117,10 @@ export class Evaluator
 
     private eval(): void
     {
-        var c = new Checker.Checker(this.tasks[0]);
-        c.checkTaskSubmissions(this.submissions)
+        for (let task of this.tasks) {
+            var c = new Checker.Checker(task);
+            c.checkTaskSubmissions(this.submissions)
+        }
     }
 
     sourcesPath: string;

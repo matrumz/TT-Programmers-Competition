@@ -1,0 +1,635 @@
+{
+    "canBeScheduled": true,
+    "schedule": {
+        "roles": [
+            "cashier",
+            "inventory",
+            "manager",
+            "maintenance",
+            "PR"
+        ],
+        "days": [
+            {
+                "day": 1,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": [
+                                    "Kaylee Frye"
+                                ]
+                            },
+                            {
+                                "role": "inventory",
+                                "people": [
+                                ]
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": [
+                                    "Malcolm Reynolds"
+                                ]
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 2,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": [
+                                    "River Tam"
+                                ]
+                            },
+                            {
+                                "role": "manager",
+                                "people": [
+                                    "Kaylee Frye"
+                                ]
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": [
+                                    "Jayne Cobb",
+                                    "Malcolm Reynolds"
+                                ]
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": [
+                                ]
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 3,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": [
+                                    "River Tam"
+                                ]
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": [
+                                    "Malcolm Reynolds"
+                                ]
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": [
+                                    "Jayne Cobb"
+                                ]
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": [
+                                    "Kaylee Frye"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 4,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": [
+                                    "River Tam"
+                                ]
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": [
+                                    "Jayne Cobb"
+                                ]
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": [
+                                    "Malcolm Reynolds"
+                                ]
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 5,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": [
+                                    "Kaylee Frye"
+                                ]
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": [
+                                    "River Tam"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": [
+                                    "Jayne Cobb"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": [
+                                ]
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 6,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "day": 7,
+                "shifts": [
+                    {
+                        "start": 800,
+                        "end": 1600,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": [
+                                    "Kaylee Frye"
+                                ]
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 1600,
+                        "end": 0,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": [
+                                    "River Tam"
+                                ]
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": []
+                            }
+                        ]
+                    },
+                    {
+                        "start": 0,
+                        "end": 800,
+                        "roster": [
+                            {
+                                "role": "cashier",
+                                "people": []
+                            },
+                            {
+                                "role": "inventory",
+                                "people": []
+                            },
+                            {
+                                "role": "manager",
+                                "people": []
+                            },
+                            {
+                                "role": "maintenance",
+                                "people": []
+                            },
+                            {
+                                "role": "PR",
+                                "people": [
+                                    "Malcolm Reynolds"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

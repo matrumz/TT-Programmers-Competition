@@ -35,9 +35,16 @@ export class Checker
         private task: T.Task
     )
     {
-        this.basicTask = Checker.checkForBasicFlag(task);
-        this.rolesNeeded = Checker.filterNeededRoles(task);
-        this.taskPositions = Checker.flattenTaskPositionRequirements(task);
+        if (task.validTask) {
+            this.basicTask = Checker.checkForBasicFlag(task);
+            this.rolesNeeded = Checker.filterNeededRoles(task);
+            this.taskPositions = Checker.flattenTaskPositionRequirements(task);
+        }
+        else {
+            this.basicTask = false;
+            this.rolesNeeded = [];
+            this.taskPositions = [];
+        }
     }
 
     private basicTask: boolean;
@@ -89,8 +96,15 @@ export class Checker
 
     private checkSchedule(sub: S.Submission): boolean
     {
-        //TODO: right here is probably where I'll check the input's "canbescheduled" against the submission's
-        if (!sub.canBeScheduled) return true;
+        if (sub.errored) {
+            console.log(sub.firstName + " " + sub.lastName + " failed task " + sub.taskNumber + " because loading submission errored");
+            return false;
+        }
+        else if (sub.canBeScheduled != this.task.canBeScheduled) {
+            console.log(sub.firstName + " " + sub.lastName + " failed task " + sub.taskNumber + " because invalid 'canBeScheduled' value");
+            return false;
+        }
+        else if (!sub.canBeScheduled) return true;
 
         if (!this.checkScheduleEmployees(sub)) return false;
         if (!this.checkScheduleShifts(sub)) return false;
